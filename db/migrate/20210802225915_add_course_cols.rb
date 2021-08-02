@@ -1,0 +1,33 @@
+class AddCourseCols < ActiveRecord::Migration[5.0]
+  def change
+    add_column :courses, :classnotes, :text
+    add_column :courses, :course_code, :string
+    add_column :courses, :credits, :float
+    add_column :courses, :crn, :integer
+    add_column :courses, :description, :text
+    add_column :courses, :enrolled, :integer
+    add_column :courses, :extra_info, :string
+    add_column :courses, :final_exam, :string
+    add_column :courses, :flag_info, :string
+    add_column :courses, :fysem, :bool
+    add_column :courses, :last_enrollment, :integer
+    add_column :courses, :last_enrollment_same_professors, :bool
+    add_column :courses, :listing_id, :integer
+    add_column :courses, :locations_summary, :string
+    add_column :courses, :number, :string
+    add_column :courses, :professor_names, :string
+    add_column :courses, :regnotes, :text
+    add_column :courses, :requirements, :text
+    add_column :courses, :rp_attr, :text
+    add_column :courses, :school, :string
+    add_column :courses, :season_code, :integer
+    add_column :courses, :section, :integer
+    add_column :courses, :skills, :string
+    add_column :courses, :subject, :string
+    add_column :courses, :syllabus_url, :string
+    add_column :courses, :times_by_day, :string
+    add_column :courses, :times_summary, :string
+    add_column :courses, :title, :string
+
+  end
+end
