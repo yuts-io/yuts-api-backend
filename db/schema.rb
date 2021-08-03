@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 2021_08_03_145333) do
     t.integer "gut_percentile"
     t.integer "professor_percentile"
     t.integer "workload_percentile"
+    t.integer "same_professor_total_rating_percentile"
+    t.integer "same_professor_workload_percentile"
   end
 
   create_table "favorites", force: :cascade do |t|

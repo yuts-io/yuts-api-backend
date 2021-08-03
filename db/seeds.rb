@@ -37,46 +37,58 @@ def get_percentile(objs, sorter_category, new_category)
 
 end
 
-
-## TEST CASE
-
-path = File.join(File.dirname(__FILE__), "/ct-data/202103.json")
-records = JSON.parse(File.read(path))
-
-records_w_guts = records.each do |record|
-    record.delete("times_by_day")
-    record["all_course_codes"] = record["all_course_codes"].join(', ')
-    record["areas"] = record["areas"].join(', ')
-    
-    record["flag_info"] = record["flag_info"].join(', ')
-    record["professor_names"] = record["professor_names"].join(', ')
-    record["skills"] = record["skills"].join(', ')
-
-    if (record["average_rating"] == nil || record["average_workload"] == nil)
-        record["gut_index"] = nil
+def get_guts(course)
+    if (course["average_rating"] == nil || course["average_workload"] == nil)
+        course["gut_index"] = nil
     else 
-        rating_work_ratio = record["average_rating"]/record["average_workload"]
-
+        rating_work_ratio = course["average_rating"]/course["average_workload"]
+    
         if rating_work_ratio > 1
             raw_score = (1 - ((2.5 - rating_work_ratio)/1.5)) * 50
-
+    
             raw_score += 50 # balance scale to max of 100
         elsif rating_work_ratio < 1
             raw_score = (1 - ((1-rating_work_ratio)/0.8)) * 50
         else
             raw_score = 50.0
         end
-
-
+    
+    
         if raw_score > 100 
-            record["gut_index"] = 100.0
+            course["gut_index"] = 100.0
         else    
-            record["gut_index"] = raw_score
+            course["gut_index"] = raw_score
         end
     end
-    Course.create(record)
+end
+
+
+def clean_data(courses)
+
+    records_w_guts = courses.each do |course|
+        course.delete("times_by_day")
+        course["all_course_codes"] = course["all_course_codes"].join(', ')
+        course["areas"] = course["areas"].join(', ')
+        
+        course["flag_info"] = course["flag_info"].join(', ')
+        course["professor_names"] = course["professor_names"].join(', ')
+        course["skills"] = course["skills"].join(', ')
+        
+        get_guts(course)
+        Course.create(course)
+    end
     
 end
+
+
+
+
+## TEST CASE
+
+path = File.join(File.dirname(__FILE__), "/ct-data/202103.json")
+courses_raw_data = JSON.parse(File.read(path))
+
+clean_data(courses_raw_data)
 
 
 gut_objs = Course.all.select {|course| (course.gut_index != nil)}
@@ -101,7 +113,8 @@ get_percentile(workload_objs, "average_workload", "workload_percentile")
 
 get_percentile(same_prof_tot_rating_objs, "average_rating_same_professors", "same_professor_total_rating_percentile")
 
-get_percentile(same_prof_tot_rating_objs, "average_workload_same_professors", "same_professor_workload_percentile")
+get_percentile(same_prof_workload_objs, "average_workload_same_professors", "same_professor_workload_percentile")
+
 
 
 
