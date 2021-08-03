@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210803000113) do
+ActiveRecord::Schema.define(version: 20210803033851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20210803000113) do
     t.string   "syllabus_url"
     t.string   "times_summary"
     t.string   "title"
+    t.float    "gut_index"
   end
 
   create_table "students", force: :cascade do |t|
