@@ -13,8 +13,15 @@
 !/log/.keep
 !/tmp/.keep
 
-# Ignore Byebug command history file.
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
 .byebug_history
 
-# Ignore all CAS-Protected data
-/db/ct-data/*
+# Ignore master key for decrypting credentials and more.
+/config/master.key
