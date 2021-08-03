@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210802225915) do
+ActiveRecord::Schema.define(version: 20210803000113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 20210802225915) do
     t.string   "skills"
     t.string   "subject"
     t.string   "syllabus_url"
-    t.string   "times_by_day"
     t.string   "times_summary"
     t.string   "title"
   end
