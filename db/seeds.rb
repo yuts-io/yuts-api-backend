@@ -55,38 +55,39 @@ end
 
 gut_indices_objs = Course.all.select {|course| (course.gut_index != nil)}
 
-sorted_gut_objs = gut_indices_objs.sort_by { |course| course.gut_index}
+get_percentile(gut_indices_objs, gut_percentile)
+
+# sorted_gut_objs = gut_indices_objs.sort_by { |course| course.gut_index}
 
 
-count = gut_indices_objs.count
-
-# puts sorted_gut_objs[-1].gut_index
+# count = gut_indices_objs.count
 
 
 
-sorted_gut_objs.each_with_index do |course, i|
 
-    # L/N(100) = P
-    # L = number of scores beneath this score (score array index)
-    # N = total number of scores
-    # P = percentile
+# sorted_gut_objs.each_with_index do |course, i|
 
-    # p records_w_guts[i]
-    # puts gut
-    perc = (i.to_f/count.to_f*100).ceil
+#     # L/N(100) = P
+#     # L = number of scores beneath this score (score array index)
+#     # N = total number of scores
+#     # P = percentile
 
-    course_find = Course.find_by(id: course.id)
+#     # p records_w_guts[i]
+#     # puts gut
+#     perc = (i.to_f/count.to_f*100).ceil
 
-    p course_find
+#     course_find = Course.find_by(id: course.id)
 
-    course_find.gut_percentile = perc
+#     p course_find
 
-    p course_find.gut_percentile
+#     course_find.gut_percentile = perc
 
-    course_find.save
-  end
+#     p course_find.gut_percentile
 
-#   puts records_w_guts 
+#     course_find.save
+#   end
+
+
 
 
 
@@ -141,31 +142,31 @@ sorted_gut_objs.each_with_index do |course, i|
 
 def get_percentile(objs, category)
 
-sorted_objs = objs.sort_by { |course| course.gut_index}
+    sorted_objs = objs.sort_by { |course| course.gut_index}
 
 
-count = objs.count
+    count = objs.count
 
-# puts sorted_gut_objs[-1].gut_index
+    # puts sorted_gut_objs[-1].gut_index
 
 
 
-sorted_objs.each_with_index do |course, i|
+    sorted_objs.each_with_index do |course, i|
 
-    # L/N(100) = P
-    # L = number of scores beneath this score (score array index)
-    # N = total number of scores
-    # P = percentile
+        # L/N(100) = P
+        # L = number of scores beneath this score (score array index)
+        # N = total number of scores
+        # P = percentile
 
-    # p records_w_guts[i]
-    # puts gut
-    percentile = (i.to_f/count.to_f*100).ceil
+        # p records_w_guts[i]
+        # puts gut
+        percentile = (i.to_f/count.to_f*100).ceil
 
-    course_obj = Course.find_by(id: course.id)
+        course_obj = Course.find_by(id: course.id)
 
-    course_obj.category = percentile
+        course_obj.category = percentile
 
-    course_obj.save
-  end
+        course_obj.save
+    end
 
 end

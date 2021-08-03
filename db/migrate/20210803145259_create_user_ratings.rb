@@ -5,8 +5,8 @@ class CreateUserRatings < ActiveRecord::Migration[6.1]
       t.integer :student_id
       t.integer :difficulty_rating
       t.string :grade
-      t.bool :is_a_gut
-      t.bool :enjoyed_class
+      t.boolean :is_a_gut
+      t.boolean :enjoyed_class
 
       t.timestamps
     end
