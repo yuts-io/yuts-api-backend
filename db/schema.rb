@@ -63,6 +63,9 @@ ActiveRecord::Schema.define(version: 2021_08_03_145333) do
     t.string "times_summary"
     t.string "title"
     t.float "gut_index"
+    t.integer "gut_percentile"
+    t.integer "professor_percentile"
+    t.integer "workload_percentile"
   end
 
   create_table "favorites", force: :cascade do |t|

@@ -6,14 +6,42 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+def get_percentile(objs, sorter_category, new_category)
 
-# if Course.count == 0
+    sorted_objs = objs.sort_by { |course| course[sorter_category]}
+
+
+    count = objs.count
+
+    # puts sorted_gut_objs[-1].gut_index
+
+
+
+    sorted_objs.each_with_index do |course, i|
+
+        # L/N(100) = P
+        # L = number of scores beneath this score (score array index)
+        # N = total number of scores
+        # P = percentile
+
+        # p records_w_guts[i]
+        # puts gut
+        percentile = (i.to_f/count.to_f*100).ceil
+
+        course_obj = Course.find_by(id: course.id)
+
+        course_obj[new_category] = percentile
+
+        course_obj.save
+    end
+
+end
+
+
+## TEST CASE
+
 path = File.join(File.dirname(__FILE__), "/ct-data/202103.json")
 records = JSON.parse(File.read(path))
-
-
-
-
 
 records_w_guts = records.each do |record|
     record.delete("times_by_day")
@@ -51,41 +79,29 @@ records_w_guts = records.each do |record|
 end
 
 
+gut_objs = Course.all.select {|course| (course.gut_index != nil)}
+
+prof_objs = Course.all.select {|course| (course.average_professor != nil)}
+
+workload_objs = Course.all.select {|course| (course.average_workload != nil)}
+
+same_prof_tot_rating_objs = Course.all.select {|course| (course.average_rating_same_professors != nil)}
+
+same_prof_workload_objs = Course.all.select {|course| (course.average_workload_same_professors != nil)}
 
 
-gut_indices_objs = Course.all.select {|course| (course.gut_index != nil)}
-
-get_percentile(gut_indices_objs, gut_percentile)
-
-# sorted_gut_objs = gut_indices_objs.sort_by { |course| course.gut_index}
-
-
-# count = gut_indices_objs.count
 
 
 
+get_percentile(gut_objs, "gut_index", "gut_percentile")
 
-# sorted_gut_objs.each_with_index do |course, i|
+get_percentile(prof_objs, "average_professor", "professor_percentile")
 
-#     # L/N(100) = P
-#     # L = number of scores beneath this score (score array index)
-#     # N = total number of scores
-#     # P = percentile
+get_percentile(workload_objs, "average_workload", "workload_percentile")
 
-#     # p records_w_guts[i]
-#     # puts gut
-#     perc = (i.to_f/count.to_f*100).ceil
+get_percentile(same_prof_tot_rating_objs, "average_rating_same_professors", "same_professor_total_rating_percentile")
 
-#     course_find = Course.find_by(id: course.id)
-
-#     p course_find
-
-#     course_find.gut_percentile = perc
-
-#     p course_find.gut_percentile
-
-#     course_find.save
-#   end
+get_percentile(same_prof_tot_rating_objs, "average_workload_same_professors", "same_professor_workload_percentile")
 
 
 
@@ -94,8 +110,17 @@ get_percentile(gut_indices_objs, gut_percentile)
 
 
 
-# end
 
+
+
+
+
+
+
+
+
+
+## ACTUAL ITERATION THRU ALL JSON FILES
 
 # Dir.children("./db/ct-data").each do |filename|
 #     path = File.join(File.dirname(__FILE__), "/ct-data/#{filename}")
@@ -138,35 +163,5 @@ get_percentile(gut_indices_objs, gut_percentile)
 #     end
 # end
 
-# helper fcns
+## HELPER FCNS
 
-def get_percentile(objs, category)
-
-    sorted_objs = objs.sort_by { |course| course.gut_index}
-
-
-    count = objs.count
-
-    # puts sorted_gut_objs[-1].gut_index
-
-
-
-    sorted_objs.each_with_index do |course, i|
-
-        # L/N(100) = P
-        # L = number of scores beneath this score (score array index)
-        # N = total number of scores
-        # P = percentile
-
-        # p records_w_guts[i]
-        # puts gut
-        percentile = (i.to_f/count.to_f*100).ceil
-
-        course_obj = Course.find_by(id: course.id)
-
-        course_obj.category = percentile
-
-        course_obj.save
-    end
-
-end

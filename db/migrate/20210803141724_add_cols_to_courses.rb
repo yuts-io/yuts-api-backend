@@ -28,5 +28,13 @@ class AddColsToCourses < ActiveRecord::Migration[6.1]
     add_column :courses, :times_summary, :string
     add_column :courses, :title, :string
     add_column :courses, :gut_index, :float
+    add_column :courses, :gut_percentile, :integer
+    add_column :courses, :professor_percentile, :integer
+    add_column :courses, :workload_percentile, :integer
+    add_column :courses, :same_professor_total_rating_percentile, :integer
+    add_column :courses, :same_professor_workload_percentile, :integer
+
+
+
   end
 end
