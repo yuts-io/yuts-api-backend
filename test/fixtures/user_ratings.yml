@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_id: 1
+  student_id: 1
+  difficulty_rating: 1
+  grade: MyString
+  is_a_gut: 
+  enjoyed_class: 
+
+two:
+  course_id: 1
+  student_id: 1
+  difficulty_rating: 1
+  grade: MyString
+  is_a_gut: 
+  enjoyed_class: 
