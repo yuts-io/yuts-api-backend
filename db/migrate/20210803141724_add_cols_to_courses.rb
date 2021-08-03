@@ -1,4 +1,4 @@
-class AddCourseCols < ActiveRecord::Migration[5.0]
+class AddColsToCourses < ActiveRecord::Migration[6.1]
   def change
     add_column :courses, :classnotes, :text
     add_column :courses, :course_code, :string
@@ -25,9 +25,8 @@ class AddCourseCols < ActiveRecord::Migration[5.0]
     add_column :courses, :skills, :string
     add_column :courses, :subject, :string
     add_column :courses, :syllabus_url, :string
-    add_column :courses, :times_by_day, :string
     add_column :courses, :times_summary, :string
     add_column :courses, :title, :string
-
+    add_column :courses, :gut_index, :float
   end
 end
