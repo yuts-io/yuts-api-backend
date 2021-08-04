@@ -62,6 +62,31 @@ def get_guts(course)
     end
 end
 
+def get_stats(courses, category)
+
+    avg = courses.mean
+
+    median = courses.median
+    
+
+
+    std_dev = courses.standard_deviation
+
+    mode = courses.mode
+
+    range = courses.range
+
+    courses.each do |course|
+        course[category + "_mean"] = avg
+        course[category + "_median"] = median
+        course[category + "_standard_deviation"] = std_dev
+        course[category + "_mode"] = mode
+        course[category + "_range"] = range 
+        course.save
+    end
+
+end
+
 
 def clean_data(courses)
 
@@ -90,16 +115,23 @@ courses_raw_data = JSON.parse(File.read(path))
 
 clean_data(courses_raw_data)
 
+season_json = "202103.json"
 
-gut_objs = Course.all.select {|course| (course.gut_index != nil)}
+season_code_str = season_json[0...6]
 
-prof_objs = Course.all.select {|course| (course.average_professor != nil)}
+courses_in_season = Course.all.select {|course| course.season_code == season_code_str}
 
-workload_objs = Course.all.select {|course| (course.average_workload != nil)}
 
-same_prof_tot_rating_objs = Course.all.select {|course| (course.average_rating_same_professors != nil)}
 
-same_prof_workload_objs = Course.all.select {|course| (course.average_workload_same_professors != nil)}
+gut_objs = courses_in_season.select {|course| (course.gut_index != nil }
+
+prof_objs = courses_in_season.select {|course| (course.average_professor != nil)}
+
+workload_objs = courses_in_season.select {|course| (course.average_workload != nil)}
+
+same_prof_tot_rating_objs = courses_in_season.select {|course| (course.average_rating_same_professors != nil)}
+
+same_prof_workload_objs = courses_in_season.select {|course| (course.average_workload_same_professors != nil)}
 
 
 
@@ -115,15 +147,17 @@ get_percentile(same_prof_tot_rating_objs, "average_rating_same_professors", "sam
 
 get_percentile(same_prof_workload_objs, "average_workload_same_professors", "same_professor_workload_percentile")
 
+get_stats(gut_objs, "gut_index")
 
 
 
-subjects = Course.all.map {|course| course.subject}.uniq
+
+subjects = courses_in_season.map {|course| course.subject}.uniq
 
 
 subjects.each do |subject|
 
-    courses_in_subject = Course.all.select {|course| course.subject == subject }
+    courses_in_subject = courses_in_season.select {|course| course.subject == subject }
 
     gut_courses_in_subject = courses_in_subject.select {|course| course.gut_index != nil}
     get_percentile(gut_courses_in_subject, "gut_index", "gut_percentile_subject")

@@ -38,6 +38,12 @@ class AddColsToCourses < ActiveRecord::Migration[6.1]
     add_column :courses, :workload_percentile_subject, :integer
     add_column :courses, :same_professor_total_rating_percentile_subject, :integer
     add_column :courses, :same_professor_workload_percentile_subject, :integer
+    add_column :courses, :gut_index_mean, :float
+    add_column :courses, :gut_index_median, :float
+    add_column :courses, :gut_index_variance, :float
+    add_column :courses, :gut_index_standard_deviation, :float
+    add_column :courses, :gut_index_mode, :float
+    add_column :courses, :gut_index_range, :float
 
 
   end
