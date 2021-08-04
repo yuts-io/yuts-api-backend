@@ -40,11 +40,55 @@ class AddColsToCourses < ActiveRecord::Migration[6.1]
     add_column :courses, :same_professor_workload_percentile_subject, :integer
     add_column :courses, :gut_index_mean, :float
     add_column :courses, :gut_index_median, :float
-    add_column :courses, :gut_index_variance, :float
     add_column :courses, :gut_index_standard_deviation, :float
     add_column :courses, :gut_index_mode, :float
     add_column :courses, :gut_index_range, :float
-
+    add_column :courses, :average_professor_mean, :float
+    add_column :courses, :average_professor_median, :float
+    add_column :courses, :average_professor_standard_deviation, :float
+    add_column :courses, :average_professor_mode, :float
+    add_column :courses, :average_professor_range, :float
+    add_column :courses, :average_workload_mean, :float
+    add_column :courses, :average_workload_median, :float
+    add_column :courses, :average_workload_standard_deviation, :float
+    add_column :courses, :average_workload_mode, :float
+    add_column :courses, :average_workload_range, :float
+    add_column :courses, :average_rating_same_professors_mean, :float
+    add_column :courses, :average_rating_same_professors_median, :float
+    add_column :courses, :average_rating_same_professors_standard_deviation, :float
+    add_column :courses, :average_rating_same_professors_mode, :float
+    add_column :courses, :average_rating_same_professors_range, :float
+    add_column :courses, :average_workload_same_professors_mean, :float
+    add_column :courses, :average_workload_same_professors_median, :float
+    add_column :courses, :average_workload_same_professors_standard_deviation, :float
+    add_column :courses, :average_workload_same_professors_mode, :float
+    add_column :courses, :average_workload_same_professors_range, :float
+    add_column :courses, :gut_index_subject_mean, :float
+    add_column :courses, :gut_index_subject_median, :float
+    add_column :courses, :gut_index_subject_standard_deviation, :float
+    add_column :courses, :gut_index_subject_mode, :float
+    add_column :courses, :gut_index_subject_range, :float
+    add_column :courses, :average_professor_subject_mean, :float
+    add_column :courses, :average_professor_subject_median, :float
+    add_column :courses, :average_professor_subject_standard_deviation, :float
+    add_column :courses, :average_professor_subject_mode, :float
+    add_column :courses, :average_professor_subject_range, :float
+    add_column :courses, :average_workload_subject_mean, :float
+    add_column :courses, :average_workload_subject_median, :float
+    add_column :courses, :average_workload_subject_standard_deviation, :float
+    add_column :courses, :average_workload_subject_mode, :float
+    add_column :courses, :average_workload_subject_range, :float
+    add_column :courses, :average_rating_same_professors_subject_mean, :float
+    add_column :courses, :average_rating_same_professors_subject_median, :float
+    add_column :courses, :average_rating_same_professors_subject_standard_deviation, :float
+    add_column :courses, :average_rating_same_professors_subject_mode, :float
+    add_column :courses, :average_rating_same_professors_subject_range, :float
+    add_column :courses, :average_workload_same_professors_subject_mean, :float
+    add_column :courses, :average_workload_same_professors_subject_median, :float
+    add_column :courses, :average_workload_same_professors_subject_standard_deviation, :float
+    add_column :courses, :average_workload_same_professors_subject_mode, :float
+    add_column :courses, :average_workload_same_professors_subject_range, :float
+    
 
   end
 end

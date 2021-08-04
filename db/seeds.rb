@@ -67,7 +67,7 @@ def get_guts(course)
     end
 end
 
-def get_stats(courses, category)
+def get_stats(courses, category, subject=false)
 
 
 
@@ -77,7 +77,7 @@ def get_stats(courses, category)
 
     courses_cat = courses.map {|course| course[category]}
 
-    puts courses_cat
+    # puts courses_cat
     courses_cat.extend(DescriptiveStatistics)
 
     avg = courses_cat.mean
@@ -91,13 +91,24 @@ def get_stats(courses, category)
 
     range = courses_cat.range
 
-    courses.each do |course|
-        course[category + "_mean"] = avg
-        course[category + "_median"] = median
-        course[category + "_standard_deviation"] = std_dev
-        course[category + "_mode"] = mode
-        course[category + "_range"] = range 
-        course.save
+    if subject
+        courses.each do |course|
+            course[category + "_subject_mean"] = avg
+            course[category + "_subject_median"] = median
+            course[category + "_subject_standard_deviation"] = std_dev
+            course[category + "_subject_mode"] = mode
+            course[category + "_subject_range"] = range 
+            course.save
+        end
+    else
+        courses.each do |course|
+            course[category + "_mean"] = avg
+            course[category + "_median"] = median
+            course[category + "_standard_deviation"] = std_dev
+            course[category + "_mode"] = mode
+            course[category + "_range"] = range 
+            course.save
+        end
     end
 
 end
@@ -170,6 +181,15 @@ puts "getting stats"
 
 get_stats(gut_objs, "gut_index")
 
+get_stats(prof_objs, "average_professor")
+
+get_stats(prof_objs, "average_workload")
+
+get_stats(prof_objs, "average_rating_same_professors")
+
+get_stats(prof_objs, "average_workload_same_professors")
+
+
 
 
 puts "getting subject percentiles"
@@ -183,19 +203,23 @@ subjects.each do |subject|
 
     gut_courses_in_subject = courses_in_subject.select {|course| course.gut_index != nil}
     get_percentile(gut_courses_in_subject, "gut_index", "gut_percentile_subject")
+    get_stats(gut_courses_in_subject, "gut_index", true)
 
     prof_courses_in_subject = courses_in_subject.select {|course| course.average_professor != nil}
     get_percentile(prof_courses_in_subject, "average_professor", "professor_percentile_subject")
+    get_stats(prof_courses_in_subject, "average_professor", true)
 
     workload_courses_in_subject = courses_in_subject.select {|course| course.average_workload != nil}
     get_percentile(workload_courses_in_subject, "average_workload", "workload_percentile_subject")
-    
+    get_stats(workload_courses_in_subject, "average_workload", true)
 
     prof_same_courses_in_subject = courses_in_subject.select {|course| course.average_rating_same_professors != nil}
     get_percentile(prof_same_courses_in_subject, "average_rating_same_professors", "same_professor_total_rating_percentile_subject")
+    get_stats(prof_same_courses_in_subject, "average_rating_same_professors", true)
 
     workload_same_courses_in_subject = courses_in_subject.select {|course| course.average_workload_same_professors != nil}
     get_percentile(workload_same_courses_in_subject, "average_workload_same_professors", "same_professor_workload_percentile_subject")
+    get_stats(workload_same_courses_in_subject, "average_workload_same_professors", true)
 
 end
 

@@ -79,6 +79,12 @@ ActiveRecord::Schema.define(version: 2021_08_03_145333) do
     t.float "gut_index_standard_deviation"
     t.float "gut_index_mode"
     t.float "gut_index_range"
+    t.float "average_professor_mean"
+    t.float "average_professor_median"
+    t.float "average_professor_variance"
+    t.float "average_professor_standard_deviation"
+    t.float "average_professor_mode"
+    t.float "average_professor_range"
   end
 
   create_table "favorites", force: :cascade do |t|
