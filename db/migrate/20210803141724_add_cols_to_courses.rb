@@ -33,7 +33,11 @@ class AddColsToCourses < ActiveRecord::Migration[6.1]
     add_column :courses, :workload_percentile, :integer
     add_column :courses, :same_professor_total_rating_percentile, :integer
     add_column :courses, :same_professor_workload_percentile, :integer
-
+    add_column :courses, :gut_percentile_subject, :integer
+    add_column :courses, :professor_percentile_subject, :integer
+    add_column :courses, :workload_percentile_subject, :integer
+    add_column :courses, :same_professor_total_rating_percentile_subject, :integer
+    add_column :courses, :same_professor_workload_percentile_subject, :integer
 
 
   end

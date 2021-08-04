@@ -118,7 +118,30 @@ get_percentile(same_prof_workload_objs, "average_workload_same_professors", "sam
 
 
 
+subjects = Course.all.map {|course| course.subject}.uniq
 
+
+subjects.each do |subject|
+
+    courses_in_subject = Course.all.select {|course| course.subject == subject }
+
+    gut_courses_in_subject = courses_in_subject.select {|course| course.gut_index != nil}
+    get_percentile(gut_courses_in_subject, "gut_index", "gut_percentile_subject")
+
+    prof_courses_in_subject = courses_in_subject.select {|course| course.average_professor != nil}
+    get_percentile(prof_courses_in_subject, "average_professor", "professor_percentile_subject")
+
+    workload_courses_in_subject = courses_in_subject.select {|course| course.average_workload != nil}
+    get_percentile(workload_courses_in_subject, "average_workload", "workload_percentile_subject")
+    
+
+    prof_same_courses_in_subject = courses_in_subject.select {|course| course.average_rating_same_professors != nil}
+    get_percentile(prof_same_courses_in_subject, "average_rating_same_professors", "same_professor_total_rating_percentile_subject")
+
+    workload_same_courses_in_subject = courses_in_subject.select {|course| course.average_workload_same_professors != nil}
+    get_percentile(workload_same_courses_in_subject, "average_workload_same_professors", "same_professor_workload_percentile_subject")
+
+end
 
 
 
