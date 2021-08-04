@@ -329,7 +329,7 @@ Dir.children("./db/ct-data").each do |filename|
         get_stats(workload_same_courses_in_subject, "average_workload_same_professors", true)
     
     end
-    total_count += 1
+    total_counter += 1
     puts "Done!"
 end
 
