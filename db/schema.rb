@@ -73,6 +73,12 @@ ActiveRecord::Schema.define(version: 2021_08_03_145333) do
     t.integer "workload_percentile_subject"
     t.integer "same_professor_total_rating_percentile_subject"
     t.integer "same_professor_workload_percentile_subject"
+    t.float "gut_index_mean"
+    t.float "gut_index_median"
+    t.float "gut_index_variance"
+    t.float "gut_index_standard_deviation"
+    t.float "gut_index_mode"
+    t.float "gut_index_range"
   end
 
   create_table "favorites", force: :cascade do |t|

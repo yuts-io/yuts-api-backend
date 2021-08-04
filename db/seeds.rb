@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'descriptive_statistics/safe'
 
 def get_percentile(objs, sorter_category, new_category)
 
@@ -64,10 +65,11 @@ end
 
 def get_stats(courses, category)
 
+    courses_cat = courses.map {|course| course[category]}
+
     avg = courses.mean
 
     median = courses.median
-    
 
 
     std_dev = courses.standard_deviation
@@ -134,7 +136,7 @@ same_prof_tot_rating_objs = courses_in_season.select {|course| (course.average_r
 same_prof_workload_objs = courses_in_season.select {|course| (course.average_workload_same_professors != nil)}
 
 
-
+puts "getting percentiles"
 
 
 get_percentile(gut_objs, "gut_index", "gut_percentile")
@@ -147,10 +149,13 @@ get_percentile(same_prof_tot_rating_objs, "average_rating_same_professors", "sam
 
 get_percentile(same_prof_workload_objs, "average_workload_same_professors", "same_professor_workload_percentile")
 
+puts "getting stats"
+
 get_stats(gut_objs, "gut_index")
 
 
 
+puts "getting subject percentiles"
 
 subjects = courses_in_season.map {|course| course.subject}.uniq
 
