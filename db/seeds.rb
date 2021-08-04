@@ -5,7 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'descriptive_statistics/safe'
+
+
+Course.destroy_all
 
 def get_percentile(objs, sorter_category, new_category)
 
@@ -57,7 +59,9 @@ def get_guts(course)
     
         if raw_score > 100 
             course["gut_index"] = 100.0
-        else    
+        elsif raw_score < 0 
+            course["gut_index"] = 0.0
+        else
             course["gut_index"] = raw_score
         end
     end
@@ -65,18 +69,27 @@ end
 
 def get_stats(courses, category)
 
+
+
+    # p courses[0]
+    # puts category
+    # Array.extend(DescriptiveStatistics)
+
     courses_cat = courses.map {|course| course[category]}
 
-    avg = courses.mean
+    puts courses_cat
+    courses_cat.extend(DescriptiveStatistics)
 
-    median = courses.median
+    avg = courses_cat.mean
+
+    median = courses_cat.median
 
 
-    std_dev = courses.standard_deviation
+    std_dev = courses_cat.standard_deviation
 
-    mode = courses.mode
+    mode = courses_cat.mode
 
-    range = courses.range
+    range = courses_cat.range
 
     courses.each do |course|
         course[category + "_mean"] = avg
@@ -119,13 +132,17 @@ clean_data(courses_raw_data)
 
 season_json = "202103.json"
 
-season_code_str = season_json[0...6]
+season_code_str = season_json[0...6].to_i
 
-courses_in_season = Course.all.select {|course| course.season_code == season_code_str}
+courses_w_stats_enabled = Course.all.extend(DescriptiveStatistics)
 
+courses_in_season = courses_w_stats_enabled.select {|course| course.season_code == season_code_str}
 
+# p courses_in_season[0]
 
-gut_objs = courses_in_season.select {|course| (course.gut_index != nil }
+gut_objs = courses_in_season.select {|course| course.gut_index != nil }
+
+# p gut_objs[0]
 
 prof_objs = courses_in_season.select {|course| (course.average_professor != nil)}
 
