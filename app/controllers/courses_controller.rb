@@ -31,4 +31,13 @@ class CoursesController < ApplicationController
     def season
         courses
     end
+
+    def seasonsList
+        list = Course.pluck("season_code").uniq.sort.reverse
+
+
+        # p list
+
+        render json: list
+    end
 end
