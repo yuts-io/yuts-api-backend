@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get '/courses/:season/:amount/load_more', to: 'courses#load'
 
-  get 'courses/:season/season', to: 'courses#season'
+  get '/courses/:season/new_season_home', to: 'courses#new_season_home'
 
   
 end

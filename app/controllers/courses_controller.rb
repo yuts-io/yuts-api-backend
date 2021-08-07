@@ -28,8 +28,9 @@ class CoursesController < ApplicationController
         render json: courses
     end
 
-    def season
-        courses
+    def new_season_home
+        courses = Course.where("season_code = #{params[:season]}").order(course_code: :asc).limit(150)
+        render json: courses
     end
 
     def seasonsList
