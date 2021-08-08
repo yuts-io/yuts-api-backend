@@ -1,4 +1,5 @@
 class Course < ApplicationRecord
+    has_many: comments
 
     def self.getBySeason(season)
         self.order(season_code: :desc).select {|course| course.season_code == season}
