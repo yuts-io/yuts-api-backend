@@ -1,4 +1,7 @@
 class CoursesController < ApplicationController
+
+    
+    @@authed = false
     def index
         
         # courses = Course.getBySeason(202103).first(10)
@@ -7,14 +10,25 @@ class CoursesController < ApplicationController
 
         # Course.find_each {|course| courses << course if course.season_code == 202103}
 
-       courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
         
         # courses = Course.first(10)
 
-        
+        # if session['cas']['user'] 
+        #     courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
+        #     render json: courses
+        if (@@authed)
+            courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
+            render json: courses
+        else 
+            render status: :unauthorized
+            @@authed = true
+        end
+        # else 
+            
+            # byebug
+        # end
 
 
-        render json: courses
     end
 
 
