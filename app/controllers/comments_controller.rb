@@ -13,6 +13,11 @@ class CommentsController < ApplicationController
         render json: comment
     end
 
+    def destroy
+        comment = Comment.find_by(id: params[:id])
+        comment.destroy
+    end
+
     
     private
 
