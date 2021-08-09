@@ -1,32 +1,19 @@
 class CoursesController < ApplicationController
 
     
-    @@authed = false
+    # @@authed = false
     def index
         
-        # courses = Course.getBySeason(202103).first(10)
 
-        # courses = []
 
-        # Course.find_each {|course| courses << course if course.season_code == 202103}
-
-        
-        # courses = Course.first(10)
-
-        # if session['cas']['user'] 
-        #     courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
-        #     render json: courses
-        if (@@authed)
+        # if (@@authed)
             courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
             render json: courses
-        else 
-            render status: :unauthorized
-            @@authed = true
-        end
         # else 
-            
-            # byebug
+        #     render status: :unauthorized
+        #     @@authed = true
         # end
+        
 
 
     end
@@ -34,7 +21,8 @@ class CoursesController < ApplicationController
 
     def show
         course = Course.find_by(id: params[:id])
-        render json: course
+        render json: course, include: [:comments]
+        
     end 
 
     def load 
