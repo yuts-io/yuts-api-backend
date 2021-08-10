@@ -1,5 +1,10 @@
 class CommentsController < ApplicationController
 
+    def show
+        comment = Comment.find_by(id: params[:id])
+        render json: comment, include: [:votes]
+    end 
+
     def create
         comment = Comment.create(comment_params)
         render json: comment
@@ -18,11 +23,17 @@ class CommentsController < ApplicationController
         comment.destroy
     end
 
+    def changeVotes
+        comment = Comment.find_by(id: params[:id])
+        comment.update(vote_score: params[:vote_score])
+        render json: comment
+    end
+
     
     private
 
 
     def comment_params
-        params.permit(:id, :student_id, :content, :course_id, :vote_score, :comment)
+        params.permit(:id, :student_id, :content, :comment_id, :vote_score, :comment)
     end
 end

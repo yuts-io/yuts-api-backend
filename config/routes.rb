@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 
   get '/courses/:season/new_season_home', to: 'courses#new_season_home'
 
-  
+  patch '/comments/:id/changeVotes', to: 'comments#changeVotes'
 end

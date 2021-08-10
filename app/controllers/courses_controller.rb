@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
 
     
-    # @@authed = false
+    @@authed = false
     def index
         
 
@@ -10,9 +10,12 @@ class CoursesController < ApplicationController
             courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
             render json: courses
         # else 
-        #     render status: :unauthorized
+            # render status: :unauthorized
+            # puts session
+            # byebug
         #     @@authed = true
         # end
+        # byebug
         
 
 
@@ -43,4 +46,7 @@ class CoursesController < ApplicationController
 
         render json: list
     end
+
+
+
 end
