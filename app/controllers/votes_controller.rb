@@ -1,4 +1,10 @@
 class VotesController < ApplicationController
+
+    def show
+        vote = Vote.find_by(id: params[:id])
+        render json: vote
+    end
+
     def create
         vote = Vote.create(comment_id: params[:comment_id], student_id: params[:student_id], upvote: params[:upvote])
         # byebug
