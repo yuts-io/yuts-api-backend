@@ -10,4 +10,8 @@ class Comment < ApplicationRecord
         student_wanted.first_name + " " + student_wanted.last_name
     end
 
+    def created_at
+        attributes['created_at'].strftime("%m/%d/%Y")
+    end
+
 end
