@@ -7,7 +7,6 @@ class VotesController < ApplicationController
 
     def create
         vote = Vote.create(comment_id: params[:comment_id], student_id: params[:student_id], upvote: params[:upvote])
-        # byebug
         render json: vote
     end
 
@@ -22,13 +21,4 @@ class VotesController < ApplicationController
         vote.destroy
     end
 
-
-
-
-    # private
-
-
-    # def vote_params
-    #     params.permit(:comment_id, :student_id, :upvote, :vote, :course_id)
-    # end
 end

@@ -1,13 +1,9 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
+# THIS SEEDER ASSUMES THERE IS A FILE OF SEASON JSON FILES FROM COURSETABLE IN A FILE CALLED 
+# ct-data WITH EACH JSON FILE CONTAINING ONE SEM OF CLASSES
+# IF A YALE STUDENT, THIS DATA CAN BE CURRENTLY BE COLLECTED AT https://api.coursetable.com/api/static/catalogs/{SEASON_CODE}.json
 
-# Course.destroy_all
+# season code format = YEAR + 01 for SPRING or 02 for SUMMER or 03 for FALL
 
 def get_percentile(objs, sorter_category, new_category)
 

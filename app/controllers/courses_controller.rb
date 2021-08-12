@@ -1,31 +1,13 @@
 class CoursesController < ApplicationController
 
-    
-    @@authed = false
     def index
-        
-
-
-        # if (@@authed)
-            courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
-            render json: courses
-        # else 
-            # render status: :unauthorized
-            # puts session
-            # byebug
-        #     @@authed = true
-        # end
-        # byebug
-        
-
-
+        courses = Course.where("season_code = 202103").order(course_code: :asc).limit(150)
+        render json: courses
     end
-
 
     def show
         course = Course.find_by(id: params[:id])
-        render json: course, include: [:comments]
-        
+        render json: course, include: [:comments]     
     end 
 
     def load 
@@ -40,10 +22,6 @@ class CoursesController < ApplicationController
 
     def seasonsList
         list = Course.pluck("season_code").uniq.sort.reverse
-
-
-        # p list
-
         render json: list
     end
 
