@@ -1,4 +1,5 @@
 class Comment < ApplicationRecord
+    default_scope { order('vote_score DESC') }
     belongs_to :course
     has_many :votes, dependent: :destroy
 
