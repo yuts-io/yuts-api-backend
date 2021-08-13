@@ -29,3 +29,5 @@
 /db/ct-data/*
 
 /config/initializers/omniauth.rb
+
+/config/initializers/omniauth.rb
