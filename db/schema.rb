@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_03_145333) do
+ActiveRecord::Schema.define(version: 2021_08_13_031240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,8 @@ ActiveRecord::Schema.define(version: 2021_08_03_145333) do
     t.string "major"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "google_token"
+    t.string "google_refresh_token"
   end
 
   create_table "user_ratings", force: :cascade do |t|
